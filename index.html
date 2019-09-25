@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="Groud Frank" content="Web Development,Web Design,UX,UI,
+JavaScript, HTML, CSS ">
+<meta property="og:site_name" content="www.example.dom">
+<meta property="og:title" content="Site title">
+<meta property="og:image" content="https://images.example.png">
+<meta property="og:description" content="Site description goes here....">
+<meta property="og:url" content="www.example.dom">
+<meta property="og:type" content="website">
+<meta name="twitter:title" content="Site title">
+<meta name="twitter:description" content="Site description goes here....">
+<meta name="twitter:image" content="https://images.example.png">
+<meta name="twitter:site" content="@PersonTheSiteIsAbout">
+<meta name="twitter:creator" content="@SiteCreator">
+<meta name="theme-color" content="#526173">
+<meta name="Groud Frank" description="Bio goes here">
+<meta name="Description" content="Author: Groud Frank, Stie type: Online portfolio, 
+Category: UI, UX, Web Developer.">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="img/logo.png">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<link href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css" rel="stylesheet">
+<head>
+<title>The Pig Game</title>
+</head>
+<body>
+<div id="main-board"> <!-- PSEUDO BODY -->
+    <div id="new-game-btn" class="board-btn-styles">
+        <i class="lni-game"></i>
+        <h4>NEW GAME</h4>
+    </div>
+    <div id="roll-dice-btn" class="board-btn-styles">
+        <i class="lni-arrow-right-circle"></i>
+        <h4>ROLL DICE</h4>
+    </div>
+    <div id="player1-box" class="player-box"></div>
+    <div id="player2-box" class="player-box"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+<script>
+    $(document).ready(function(){
+    var bLazy = new Blazy({
+    selector: 'img, .projects-card-img',
+    offset: 300
+    });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+</body>
+</html>
