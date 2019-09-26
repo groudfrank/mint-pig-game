@@ -34,17 +34,39 @@ Category: UI, UX, Web Developer.">
             <i class="fas fa-plus-circle"></i>
             <h4>NEW GAME</h4>
         </div>
+        <div id="dice-roll-display" class="board-btn-styles">
+            <i class="fas fa-dice-five"></i>
+            <h4>6</h4>
+        </div>
         <div id="roll-dice-btn" class="board-btn-styles">
             <i class="fas fa-sync-alt"></i>
             <h4>ROLL DICE</h4>
         </div>
         <div id="hold-btn" class="board-btn-styles">
-            <i class="fas fa-caret-square-down"></i>
+            <i class="fas fa-hand-paper"></i>
             <h4>HOLD</h4>
         </div>
     </div>
-    <div id="player1-box" class="player-box"></div>
-    <div id="player2-box" class="player-box"></div>
+    <div id="player1-box" class="player-box">
+        <div class="player-details">
+            <div id="player1" class="player-name">Player 1</div>
+            <div id="player1-global-score" class="player-global-score">0</div>
+            <div id="player1-round-score-wrapper" class="player-round-score-wrapper">
+                <div id="player1-current" class="player-current">CURRENT</div>
+                <div id="player1-current-round-score" class="player-current-round-score">0</div>
+            </div>
+        </div>
+    </div>
+    <div id="player2-box" class="player-box">
+        <div class="player-details">
+            <div id="player2" class="player-name">Player 1</div>
+            <div id="player2-global-score" class="player-global-score">0</div>
+            <div id="player2-round-score-wrapper" class="player-round-score-wrapper">
+                <div id="player2-current" class="player-current">CURRENT</div>
+                <div id="player2-current-round-score" class="player-current-round-score">0</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
