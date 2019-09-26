@@ -68,15 +68,27 @@ p{
     overflow-x: hidden;
 }
 
+.board-btn-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: auto;
+    right: auto;
+    z-index: 2;
+    height: 100%;
+    width: auto;
+    /* border: solid 2px red; */
+}
+
 .board-btn-styles{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    /* position: absolute;
     left: auto;
     right: auto;
-    z-index: 2;
+    z-index: 2; */
     padding: 5px;
 }
 
@@ -92,11 +104,15 @@ p{
 }
 
 #new-game-btn{
-    top: 35px;
+    margin: 3em 0em auto 0em;
 }
 
 #roll-dice-btn{
-    bottom: 60px;
+    margin: 0em 0em 3em 0em;
+}
+
+#hold-btn{
+    margin: 0em 0em 4em 0em;
 }
 
 #player1-box{
