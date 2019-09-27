@@ -14,6 +14,7 @@ html{
     --theme-color: #fff;
     --theme-color-contrasted: #f5f5f5;
     --accent-color: #15bd87;
+    --accent-color-alt: #33E9AD;
     --theme-txt-color: #fff;
 }
 
@@ -163,7 +164,9 @@ p{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--accent-color);
+    /* background-color: var(--accent-color); */
+    background-image: linear-gradient(to right, #15bd87, #33E9AD);
+    box-shadow: 0 8px 16px rgba(21,189,135,0.50);
     margin: 0em 0em 5em 0em;
     border-radius: 5px;
 }
@@ -189,6 +192,10 @@ p{
 #player2-box{
     background-color: var(--theme-color-contrasted);
 }
+
+/* #player2-global-score{
+    color: #33E9AD;
+} */
 
 .player-box{
     height: 100%;
