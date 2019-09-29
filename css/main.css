@@ -134,6 +134,19 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+.active-player-indicator{
+    position: absolute;
+    top: 15px;;
+    width: 10%;
+    height: 10px;
+    background-color: linear-gradient(to right, #15bd87, #33E9AD);
+    box-shadow: 0 8px 16px rgba(21,189,135,0.50);
+    border-radius: 3px;
+    background-color: var(--accent-color);
+
 }
 
 .player-details{
@@ -200,6 +213,11 @@ p{
 .player-box{
     height: 100%;
     width: 50%;
+}
+
+/*----------Misc---------*/
+.hide-me{
+    visibility: hidden;
 }
 
 

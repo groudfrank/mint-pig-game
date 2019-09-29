@@ -1,9 +1,16 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-var rollDiceBtn = document.getElementById('roll-dice-btn');
-var dice = document.getElementById('dice');
-var numericalDiceValue = document.getElementById('numerical-dice-value');
-var rollValue, numToWord, numToKey, newClassName;
+//DOM variables
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox;
+
+rollDiceBtn = document.getElementById('roll-dice-btn');
+dice = document.getElementById('dice');
+holdBtn = document.getElementById('hold-btn');
+numericalDiceValue = document.getElementById('numerical-dice-value');
+playerBox = document.querySelectorAll('.player-box');
+
+// Regular variables
+var rollValue, numToWord;
 var diceValues = {
         1:'one',
         2:'two', 
@@ -12,6 +19,23 @@ var diceValues = {
         5:'five',
         6:'six'
 };
+
+function activePlayerDisplay(){
+    playerBox.forEach(function(node){
+        if(node.classList.contains('is-active-player') == true){
+            node.querySelector('.active-player-indicator').classList.remove('hide-me');
+        } else{
+            node.querySelector('.active-player-indicator').classList.add('hide-me');
+        }
+    });
+}
+
+function activePlayerToggle(callback){
+    playerBox.forEach(function(node){
+        node.classList.toggle('is-active-player');
+        callback();
+    });
+}
 
 function changeDice(number){
     numToWord = diceValues[number];
@@ -24,6 +48,10 @@ rollDiceBtn.addEventListener('click', function(){
     changeDice(rollValue);
 });
 
+holdBtn.addEventListener('click', function(){
+    activePlayerToggle(activePlayerDisplay);
+});
 
+activePlayerDisplay();
 
 });
