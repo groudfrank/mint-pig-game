@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 //DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, activePlayer;
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerGlobalScore;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
 numericalDiceValue = document.getElementById('numerical-dice-value');
 playerBox = document.querySelectorAll('.player-box');
-// activePlayer = playerBox.querySelectorAll('.player-global-score');
 
 // Regular variables
 var rollValue, numToWord, roundScore, globalScore;
+roundScore = 0;
+numToWord = "";
+roundScore = 0;
+globalScore = 0;
 var diceValues = {
         1:'one',
         2:'two', 
@@ -21,7 +24,16 @@ var diceValues = {
         6:'six'
 };
 
-function activePlayerDisplay(){
+showActivePlayer();
+
+// Puts an indicating icon that reveals who the current player is
+// based on which player side currently has the 'is-active-player class.
+// By default Player 1 is the active player when the page loads. 
+// It is mean to work specifically with the activePlayerToggle function, 
+// as a callback function. After the active status of a player changes 
+// due to activePlayerToggle, showActivePlayer will then make the active
+// player indicator visible.
+function showActivePlayer(){
     playerBox.forEach(function(node){
         if(node.classList.contains('is-active-player') == true){
             node.querySelector('.active-player-indicator').classList.remove('hide-me');
@@ -44,34 +56,38 @@ function changeDice(number){
     numericalDiceValue.innerHTML = number;
 }
 
-// function scoreKeeper(){
-
-//     if(rollValue =! 1){
-//         roundScore += rollValue;
-//     } else {
-//         roundScore = 0;
-//     }
-// }
-
 rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
 
-    // playerBox.forEach(function(node, index){
-    //    var activeStatus = node.classList.contains('is-active-player');
-    //    var currentRoundScore = node.querySelectorAll('.player-current-round-score');
-    //    if(activeStatus == true){
-    //        currentRoundScore[index].innerHTML = foo;
-    //    }
-    // });
+    playerBox.forEach(function(node, index){
+       var activeStatus = node.classList.contains('is-active-player');
+       var currentRoundScore = node.querySelectorAll('.player-current-round-score');
+       if(activeStatus == true){
+            if(rollValue != 1){
+                roundScore += rollValue;
+                currentRoundScore[index].innerHTML = roundScore;
+            } else {
+                roundScore = 0;
+                currentRoundScore[index].innerHTML = roundScore;
+            }
+       }
+    });
 });
 
 holdBtn.addEventListener('click', function(){
-    activePlayerToggle(activePlayerDisplay);
+    playerBox.forEach(function(node, index){
+        var activeStatus = node.classList.contains('is-active-player');
+        var playerGlobalScore = node.querySelectorAll('.player-global-score');
+        if(activeStatus == true){
+            playerGlobalScore[index].innerHTML = parseInt(playerGlobalScore[index].innerHTML) + roundScore;
+        }
+     });
+
+     activePlayerToggle(showActivePlayer);
+
+    console.log(playerGlobalScore[index].innerHTML);
+    
 });
-
-activePlayerDisplay();
-
-console.log(playerBox[0].querySelectorAll('.player-current-round-score'));
 
 });
