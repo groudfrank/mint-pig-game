@@ -76,18 +76,21 @@ rollDiceBtn.addEventListener('click', function(){
 });
 
 holdBtn.addEventListener('click', function(){
+    var activeStatus, playerGlobalScore;
+    activeStatus = "";
     playerBox.forEach(function(node, index){
-        var activeStatus = node.classList.contains('is-active-player');
-        var playerGlobalScore = node.querySelectorAll('.player-global-score');
+        activeStatus = node.classList.contains('is-active-player');
+        playerGlobalScore = node.querySelectorAll('.player-global-score');
         if(activeStatus == true){
             playerGlobalScore[index].innerHTML = parseInt(playerGlobalScore[index].innerHTML) + roundScore;
         }
+
+        activePlayerToggle(showActivePlayer);
+        // console.log(typeof(playerGlobalScore[index].innerHTML));
+        // console.log(playerGlobalScore[0]);
      });
-
-     activePlayerToggle(showActivePlayer);
-
-    console.log(playerGlobalScore[index].innerHTML);
     
 });
+
 
 });
