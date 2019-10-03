@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 //DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerGlobalScore;
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerGlobalScore, player1Box, player2Box;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
 numericalDiceValue = document.getElementById('numerical-dice-value');
 playerBox = document.querySelectorAll('.player-box');
+player1Box = playerBox[0].querySelector('.player-global-score');
+player2Box = playerBox[1].querySelector('.player-global-score');
 
 // Regular variables
 var rollValue, numToWord, roundScore, globalScore;
@@ -60,16 +62,17 @@ rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
 
-    playerBox.forEach(function(node, index){
+    playerBox.forEach(function(node){
        var activeStatus = node.classList.contains('is-active-player');
-       var currentRoundScore = node.querySelectorAll('.player-current-round-score');
+       var currentRoundScore = node.querySelector('.player-current-round-score');
        if(activeStatus == true){
             if(rollValue != 1){
                 roundScore += rollValue;
-                currentRoundScore[index].innerHTML = roundScore;
+                currentRoundScore.innerHTML = roundScore;
             } else {
                 roundScore = 0;
-                currentRoundScore[index].innerHTML = roundScore;
+                currentRoundScore.innerHTML = roundScore;
+                activePlayerToggle(showActivePlayer);
             }
        }
     });
@@ -78,19 +81,22 @@ rollDiceBtn.addEventListener('click', function(){
 holdBtn.addEventListener('click', function(){
     var activeStatus, playerGlobalScore;
     activeStatus = "";
-    playerBox.forEach(function(node, index){
+    playerBox.forEach(function(node){
+        var activeStatus = node.classList.contains('is-active-player');
+        var currentRoundScore = node.querySelector('.player-current-round-score');
         activeStatus = node.classList.contains('is-active-player');
-        playerGlobalScore = node.querySelectorAll('.player-global-score');
+        playerGlobalScore = node.querySelector('.player-global-score');
         if(activeStatus == true){
-            playerGlobalScore[index].innerHTML = parseInt(playerGlobalScore[index].innerHTML) + roundScore;
+            playerGlobalScore.innerHTML = parseInt(playerGlobalScore.innerHTML) + roundScore;
+            roundScore = 0;
+            currentRoundScore.innerHTML = 0
         }
-
-        activePlayerToggle(showActivePlayer);
-        // console.log(typeof(playerGlobalScore[index].innerHTML));
-        // console.log(playerGlobalScore[0]);
      });
+     activePlayerToggle(showActivePlayer);
     
 });
+
+console.log("First element= " + player1Box.innerHTML + "\n" + "Second element= " + player2Box.innerHTML);
 
 
 });
