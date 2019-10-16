@@ -62,8 +62,9 @@ rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
 
+    var activeStatus;
     playerBox.forEach(function(node){
-       var activeStatus = node.classList.contains('is-active-player');
+       activeStatus = node.classList.contains('is-active-player');
        var currentRoundScore = node.querySelector('.player-current-round-score');
        if(activeStatus == true){
             if(rollValue != 1){
@@ -82,7 +83,7 @@ holdBtn.addEventListener('click', function(){
     var activeStatus, playerGlobalScore;
     activeStatus = "";
     playerBox.forEach(function(node){
-        var activeStatus = node.classList.contains('is-active-player');
+        activeStatus = node.classList.contains('is-active-player');
         var currentRoundScore = node.querySelector('.player-current-round-score');
         activeStatus = node.classList.contains('is-active-player');
         playerGlobalScore = node.querySelector('.player-global-score');
@@ -96,7 +97,7 @@ holdBtn.addEventListener('click', function(){
     
 });
 
-console.log("First element= " + player1Box.innerHTML + "\n" + "Second element= " + player2Box.innerHTML);
+// console.log("First element= " + player1Box.innerHTML + "\n" + "Second element= " + player2Box.innerHTML);
 
 
 });
