@@ -45,11 +45,26 @@ function showActivePlayer(){
     });
 }
 
+/** ALT FUNCTION **/
+function showActivePlayerAlt(node){
+        if(node.classList.contains('is-active-player') == true){
+            node.querySelector('.active-player-indicator').classList.remove('hide-me');
+        } else{
+            node.querySelector('.active-player-indicator').classList.add('hide-me');
+        }
+}
+
 function activePlayerToggle(callback){
     playerBox.forEach(function(node){
         node.classList.toggle('is-active-player');
         callback();
     });
+}
+
+/** ALT FUNCTION **/
+function activePlayerToggleAlt(node, callback){
+        node.classList.toggle('is-active-player');
+        callback();
 }
 
 function changeDice(number){
@@ -70,10 +85,13 @@ rollDiceBtn.addEventListener('click', function(){
             if(rollValue != 1){
                 roundScore += rollValue;
                 currentRoundScore.innerHTML = roundScore;
-            } else {
+            } 
+            if(rollValue == 1){
                 roundScore = 0;
                 currentRoundScore.innerHTML = roundScore;
-                activePlayerToggle(showActivePlayer);
+                activePlayerToggleAlt(node, function(){
+                    showActivePlayerAlt(node);
+                });
             }
        }
     });
@@ -85,12 +103,11 @@ holdBtn.addEventListener('click', function(){
     playerBox.forEach(function(node){
         activeStatus = node.classList.contains('is-active-player');
         var currentRoundScore = node.querySelector('.player-current-round-score');
-        activeStatus = node.classList.contains('is-active-player');
         playerGlobalScore = node.querySelector('.player-global-score');
         if(activeStatus == true){
             playerGlobalScore.innerHTML = parseInt(playerGlobalScore.innerHTML) + roundScore;
             roundScore = 0;
-            currentRoundScore.innerHTML = 0
+            currentRoundScore.innerHTML = 0;
         }
      });
      activePlayerToggle(showActivePlayer);
