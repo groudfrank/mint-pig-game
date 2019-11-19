@@ -26,16 +26,16 @@ var diceValues = {
         6:'six'
 };
 
-showActivePlayer();
+visibilityToggle();
 
 // Puts an indicating icon that reveals who the current player is
 // based on which player side currently has the 'is-active-player class.
 // By default Player 1 is the active player when the page loads. 
 // It is mean to work specifically with the activePlayerToggle function, 
 // as a callback function. After the active status of a player changes 
-// due to activePlayerToggle, showActivePlayer will then make the active
+// due to activePlayerToggle, visibilityToggle will then make the active
 // player indicator visible.
-function showActivePlayer(){
+function visibilityToggle(){
     playerBox.forEach(function(node){
         if(node.classList.contains('is-active-player') == true){
             node.querySelector('.active-player-indicator').classList.remove('hide-me');
@@ -46,7 +46,7 @@ function showActivePlayer(){
 }
 
 /** ALT FUNCTION **/
-function showActivePlayerAlt(node){
+function visibilityToggleAlt(node){
         if(node.classList.contains('is-active-player') == true){
             node.querySelector('.active-player-indicator').classList.remove('hide-me');
         } else{
@@ -64,7 +64,7 @@ function activePlayerToggle(callback){
 /** ALT FUNCTION **/
 function activePlayerToggleAlt(node, callback){
         node.classList.toggle('is-active-player');
-        callback();
+        callback(); // calls visibilityToggle fucntion
 }
 
 function changeDice(number){
@@ -81,16 +81,17 @@ rollDiceBtn.addEventListener('click', function(){
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
        var currentRoundScore = node.querySelector('.player-current-round-score');
-       if(activeStatus == true){
+       if(activeStatus == true){ // locks score changes to the current player class elements
             if(rollValue != 1){
                 roundScore += rollValue;
                 currentRoundScore.innerHTML = roundScore;
             } 
-            if(rollValue == 1){
+            else if(rollValue == 1){
                 roundScore = 0;
-                currentRoundScore.innerHTML = roundScore;
+                // currentRoundScore.innerHTML = roundScore;
                 activePlayerToggleAlt(node, function(){
-                    showActivePlayerAlt(node);
+                    visibilityToggleAlt(node);
+                    // activePlayerToggle(visibilityToggle);
                 });
             }
        }
@@ -110,7 +111,7 @@ holdBtn.addEventListener('click', function(){
             currentRoundScore.innerHTML = 0;
         }
      });
-     activePlayerToggle(showActivePlayer);
+     activePlayerToggle(visibilityToggle);
     
 });
 
