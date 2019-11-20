@@ -56,7 +56,12 @@ function visibilityToggleAlt(node){
 
 function activePlayerToggle(callback){
     playerBox.forEach(function(node){
-        node.classList.toggle('is-active-player');
+        // node.classList.toggle('is-active-player');
+        if(node.classList.contains('is-active-player') == true){
+            node.classList.remove('is-active-player');
+        } else{
+            node.classList.add('is-active-player');
+        }
         callback();
     });
 }
@@ -88,10 +93,11 @@ rollDiceBtn.addEventListener('click', function(){
             } 
             else if(rollValue == 1){
                 roundScore = 0;
-                // currentRoundScore.innerHTML = roundScore;
-                activePlayerToggleAlt(node, function(){
+                // activePlayerToggleAlt(node, function(){
+                //     visibilityToggleAlt(node);
+                // });
+                activePlayerToggle(function(){
                     visibilityToggleAlt(node);
-                    // activePlayerToggle(visibilityToggle);
                 });
             }
        }
