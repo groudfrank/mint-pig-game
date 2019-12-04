@@ -13,6 +13,7 @@ player2Box = playerBox[1].querySelector('.player-global-score');
 
 // Regular variables
 var rollValue, numToWord, roundScore, globalScore;
+rollValue = 0;
 roundScore = 0;
 numToWord = "";
 roundScore = 0;
@@ -82,7 +83,7 @@ rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
 
-    var activeStatus;
+    var activeStatus = "";
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
        var currentRoundScore = node.querySelector('.player-current-round-score');
@@ -90,15 +91,11 @@ rollDiceBtn.addEventListener('click', function(){
             if(rollValue != 1){
                 roundScore += rollValue;
                 currentRoundScore.innerHTML = roundScore;
-            } 
-            else if(rollValue == 1){
+            }
+            else{
                 roundScore = 0;
-                // activePlayerToggleAlt(node, function(){
-                //     visibilityToggleAlt(node);
-                // });
-                activePlayerToggle(function(){
-                    visibilityToggleAlt(node);
-                });
+                currentRoundScore.innerHTML = roundScore;
+                activePlayerToggle(visibilityToggle);
             }
        }
     });
