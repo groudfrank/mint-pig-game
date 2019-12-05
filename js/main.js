@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 //DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerGlobalScore, player1Box, player2Box;
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
@@ -12,12 +12,12 @@ player1Box = playerBox[0].querySelector('.player-global-score');
 player2Box = playerBox[1].querySelector('.player-global-score');
 
 // Regular variables
-var rollValue, numToWord, roundScore, globalScore;
+var rollValue, numToWord, roundScore, maxGlobalScore;
 rollValue = 0;
 roundScore = 0;
 numToWord = "";
 roundScore = 0;
-globalScore = 0;
+maxGlobalScore = 100;
 var diceValues = {
         1:'one',
         2:'two', 
@@ -46,15 +46,6 @@ function visibilityToggle(){
     });
 }
 
-/** ALT FUNCTION **/
-function visibilityToggleAlt(node){
-        if(node.classList.contains('is-active-player') == true){
-            node.querySelector('.active-player-indicator').classList.remove('hide-me');
-        } else{
-            node.querySelector('.active-player-indicator').classList.add('hide-me');
-        }
-}
-
 function activePlayerToggle(callback){
     playerBox.forEach(function(node){
         // node.classList.toggle('is-active-player');
@@ -67,12 +58,6 @@ function activePlayerToggle(callback){
     });
 }
 
-/** ALT FUNCTION **/
-function activePlayerToggleAlt(node, callback){
-        node.classList.toggle('is-active-player');
-        callback(); // calls visibilityToggle fucntion
-}
-
 function changeDice(number){
     numToWord = diceValues[number];
     dice.className = "fas fa-dice-" + numToWord;
@@ -83,7 +68,9 @@ rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
 
+    var functCallFlag = false;
     var activeStatus = "";
+    var currentGlobalScore;
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
        var currentRoundScore = node.querySelector('.player-current-round-score');
@@ -95,10 +82,22 @@ rollDiceBtn.addEventListener('click', function(){
             else{
                 roundScore = 0;
                 currentRoundScore.innerHTML = roundScore;
-                activePlayerToggle(visibilityToggle);
+                functCallFlag = true; 
+                // For some reason trying at call activePLayerToogle() here causes issues
+                // when ran inside the forEach loop so I've added a var called functCallFag
+                // which acts as a flag for whether or not activePlayerToogle() should be called.
+                // An if statement outside the loop will check the value of of cuntCallFlag and 
+                // determine whether or not activePLayerToggle() should be called/               
             }
-       }
+
+            // checks the global score
+            // if(currentGlobalScore >= 30){
+            //     alert("We have a Winner!");
+            //     }
+            }
     });
+
+    if(functCallFlag == true){activePlayerToggle(visibilityToggle);}
 });
 
 holdBtn.addEventListener('click', function(){
