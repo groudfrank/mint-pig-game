@@ -7,9 +7,11 @@ rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
 numericalDiceValue = document.getElementById('numerical-dice-value');
+currentPlayerBoxGlobalScore = document.querySelectorAll('.player-global-score');
 playerBox = document.querySelectorAll('.player-box');
 player1Box = playerBox[0].querySelector('.player-global-score');
 player2Box = playerBox[1].querySelector('.player-global-score');
+// playerGlobalScore = document.querySelectorAll('.player-global-score');
 
 // Regular variables
 var rollValue, numToWord, roundScore, maxGlobalScore;
@@ -70,10 +72,15 @@ rollDiceBtn.addEventListener('click', function(){
 
     var functCallFlag = false;
     var activeStatus = "";
-    var currentGlobalScore;
+    var currentRoundScore;
+    var currentGlobalScore = "";
+    var player1GlobalScore;
+    var player2GlobalScore = 0;
+    // var currentPlayerBoxGlobalScore;
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
-       var currentRoundScore = node.querySelector('.player-current-round-score');
+       currentRoundScore = node.querySelector('.player-current-round-score');
+    //    currentPlayerBoxGlobalScore = node.querySelector('.player-global-score');
        if(activeStatus == true){ // locks score changes to the current player class elements
             if(rollValue != 1){
                 roundScore += rollValue;
@@ -89,15 +96,22 @@ rollDiceBtn.addEventListener('click', function(){
                 // An if statement outside the loop will check the value of of cuntCallFlag and 
                 // determine whether or not activePLayerToggle() should be called/               
             }
+       }
 
-            // checks the global score
-            // if(currentGlobalScore >= 30){
-            //     alert("We have a Winner!");
-            //     }
-            }
+            
     });
 
     if(functCallFlag == true){activePlayerToggle(visibilityToggle);}
+
+    // checks the global score
+    player1GlobalScore = parseInt(currentPlayerBoxGlobalScore[0].innerHTML);
+    player2GlobalScore = parseInt(currentPlayerBoxGlobalScore[1].innerHTML);
+
+    // alert(player1GlobalScore);
+
+    if((player1GlobalScore >= 30 || player2GlobalScore >= 30)){
+        alert(player1GlobalScore + " " + player2GlobalScore);
+        }
 });
 
 holdBtn.addEventListener('click', function(){
