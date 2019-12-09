@@ -77,14 +77,27 @@ rollDiceBtn.addEventListener('click', function(){
     var player1GlobalScore;
     var player2GlobalScore = 0;
     // var currentPlayerBoxGlobalScore;
+
+    // checks the global score
+    player1GlobalScore = parseInt(currentPlayerBoxGlobalScore[0].innerHTML);
+    player2GlobalScore = parseInt(currentPlayerBoxGlobalScore[1].innerHTML);
+
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
        currentRoundScore = node.querySelector('.player-current-round-score');
-    //    currentPlayerBoxGlobalScore = node.querySelector('.player-global-score');
+    // currentPlayerBoxGlobalScore = node.querySelector('.player-global-score');
+
+
        if(activeStatus == true){ // locks score changes to the current player class elements
             if(rollValue != 1){
                 roundScore += rollValue;
                 currentRoundScore.innerHTML = roundScore;
+
+                (function(args1){
+                    if((args1 >= 20)){
+                        alert(args1);
+                        }
+                })(player1GlobalScore);
             }
             else{
                 roundScore = 0;
@@ -103,15 +116,11 @@ rollDiceBtn.addEventListener('click', function(){
 
     if(functCallFlag == true){activePlayerToggle(visibilityToggle);}
 
-    // checks the global score
-    player1GlobalScore = parseInt(currentPlayerBoxGlobalScore[0].innerHTML);
-    player2GlobalScore = parseInt(currentPlayerBoxGlobalScore[1].innerHTML);
-
-    // alert(player1GlobalScore);
-
-    if((player1GlobalScore >= 30 || player2GlobalScore >= 30)){
-        alert(player1GlobalScore + " " + player2GlobalScore);
-        }
+    // alert(typeof(player1GlobalScore));
+    
+    // if((player1GlobalScore >= 20)){
+    //     alert(player1GlobalScore);
+    //     }
 });
 
 holdBtn.addEventListener('click', function(){
