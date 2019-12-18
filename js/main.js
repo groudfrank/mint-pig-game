@@ -27,6 +27,8 @@ var diceValues = {
         5:'five',
         6:'six'
 };
+var player1GlobalScore;
+var player2GlobalScore;
 
 visibilityToggle();
 
@@ -65,6 +67,13 @@ function changeDice(number){
     numericalDiceValue.innerHTML = number;
 }
 
+
+function checkScore(args1, args2){
+    if((args1 >= 20 || args2 >= 20)){
+        alert('player 1= ' + args1 + "\n" + "Player 2= " + args2);
+        }
+    }
+
 rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
     changeDice(rollValue);
@@ -74,13 +83,12 @@ rollDiceBtn.addEventListener('click', function(){
     var activeStatus = "";
     var currentRoundScore;
     var currentGlobalScore = "";
-    var player1GlobalScore;
-    var player2GlobalScore;
     // var currentPlayerBoxGlobalScore;
 
     // checks the global score
-    player1GlobalScore = parseInt(playerBox[0].querySelector('.player-global-score').innerHTML);
-    player2GlobalScore = parseInt(playerBox[1].querySelector('.player-global-score').innerHTML);
+    // Also learned a little trick for converting a string to a number. Prepend the plus symbol.
+    player1GlobalScore = +playerBox[0].querySelector('.player-global-score').innerHTML;
+    player2GlobalScore = +playerBox[1].querySelector('.player-global-score').innerHTML;
 
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
@@ -117,9 +125,15 @@ rollDiceBtn.addEventListener('click', function(){
 
     if(activePlayerFlag == true){activePlayerToggle(visibilityToggle);}
 
-    if((player1GlobalScore >= 20 && scoreCheckFlag == true) || (player2GlobalScore >= 20 && scoreCheckFlag == true)){
-        alert('player 1= ' + player1GlobalScore + "\n" + "Player 2= " + player2GlobalScore);
-        }
+    // if((player1GlobalScore >= 20 && scoreCheckFlag == true) || (player2GlobalScore >= 20 && scoreCheckFlag == true)){
+    //     alert('player 1= ' + player1GlobalScore + "\n" + "Player 2= " + player2GlobalScore);
+    //     }
+
+    // player1Box.addEventListener("DOMCharacterDataModified", function(event){
+    //     if((player1GlobalScore >= 20)){
+    //         alert(player1GlobalScore);
+    //          }
+    //     }, false);
 
     // alert(typeof(player1GlobalScore));
     
@@ -127,6 +141,14 @@ rollDiceBtn.addEventListener('click', function(){
     //     alert(player1GlobalScore);
     //     }
 });
+
+setInterval(
+    function(){
+        if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
+            alert(player1GlobalScore + "\n" + player2GlobalScore);
+        }
+    }, 500,
+);
 
 holdBtn.addEventListener('click', function(){
     var activeStatus, playerGlobalScore;
@@ -144,8 +166,5 @@ holdBtn.addEventListener('click', function(){
      activePlayerToggle(visibilityToggle);
     
 });
-
-// console.log("First element= " + player1Box.innerHTML + "\n" + "Second element= " + player2Box.innerHTML);
-
 
 });
