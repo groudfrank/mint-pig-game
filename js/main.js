@@ -125,30 +125,28 @@ rollDiceBtn.addEventListener('click', function(){
 
     if(activePlayerFlag == true){activePlayerToggle(visibilityToggle);}
 
-    // if((player1GlobalScore >= 20 && scoreCheckFlag == true) || (player2GlobalScore >= 20 && scoreCheckFlag == true)){
-    //     alert('player 1= ' + player1GlobalScore + "\n" + "Player 2= " + player2GlobalScore);
-    //     }
+// setInterval(
+//     function(){
+//         if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
+//             alert(player1GlobalScore + "\n" + player2GlobalScore);
+//         }
+//         // alert("Bruv");
+//     }, 5000,
+// );
 
-    // player1Box.addEventListener("DOMCharacterDataModified", function(event){
-    //     if((player1GlobalScore >= 20)){
-    //         alert(player1GlobalScore);
-    //          }
-    //     }, false);
+var foo = document.getElementById('player1-global-score');
+alert(foo);
 
-    // alert(typeof(player1GlobalScore));
-    
-    // if((player1GlobalScore >= 20)){
-    //     alert(player1GlobalScore);
-    //     }
-});
+var callback = function(){
+    // if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
+    //     alert(player1GlobalScore + "\n" + player2GlobalScore);
+    // }
+    alert("Change in data!");
+}
 
-setInterval(
-    function(){
-        if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
-            alert(player1GlobalScore + "\n" + player2GlobalScore);
-        }
-    }, 500,
-);
+var config = {characterData: true}
+let observer = new MutationObserver(callback);
+observer.observe(foo, config);
 
 holdBtn.addEventListener('click', function(){
     var activeStatus, playerGlobalScore;
