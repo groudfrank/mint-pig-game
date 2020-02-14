@@ -125,6 +125,8 @@ rollDiceBtn.addEventListener('click', function(){
 
     if(activePlayerFlag == true){activePlayerToggle(visibilityToggle);}
 
+});
+
 // setInterval(
 //     function(){
 //         if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
@@ -135,7 +137,7 @@ rollDiceBtn.addEventListener('click', function(){
 // );
 
 var foo = document.getElementById('player1-global-score');
-alert(foo);
+// alert(foo.innerHTML);
 
 var callback = function(){
     // if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
@@ -145,7 +147,7 @@ var callback = function(){
 }
 
 var config = {characterData: true}
-let observer = new MutationObserver(callback);
+var observer = new MutationObserver(callback);
 observer.observe(foo, config);
 
 holdBtn.addEventListener('click', function(){
