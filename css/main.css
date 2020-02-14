@@ -115,7 +115,7 @@ p{
     color: var(--theme-txt-color);
     font-size: 113px;
     font-weight: bold;
-    text-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-shadow: 0 10px 10px rgba(0,0,0,0.1);
 }
 
 #new-game-btn{
@@ -143,7 +143,7 @@ p{
     width: 10%;
     height: 10px;
     background-color: linear-gradient(to right, #15bd87, #33E9AD);
-    box-shadow: 0 8px 16px rgba(21,189,135,0.50);
+    box-shadow: 0 4px 5px rgba(21,189,135,0.50);
     border-radius: 3px;
     background-color: var(--accent-color);
 

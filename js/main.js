@@ -138,16 +138,23 @@ rollDiceBtn.addEventListener('click', function(){
 
 var foo = document.getElementById('player1-global-score');
 // alert(foo.innerHTML);
+// console.log(typeof foo.TEXT_NODE);
 
 var callback = function(){
     // if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
     //     alert(player1GlobalScore + "\n" + player2GlobalScore);
     // }
-    alert("Change in data!");
 }
 
-var config = {characterData: true}
-var observer = new MutationObserver(callback);
+var config = {
+    characterData: true,
+    childList: true
+}
+
+var observer = new MutationObserver(bar => {
+    // alert('Shit just changed bruv');
+    console.log(bar);
+});
 observer.observe(foo, config);
 
 holdBtn.addEventListener('click', function(){
