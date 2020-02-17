@@ -127,35 +127,50 @@ rollDiceBtn.addEventListener('click', function(){
 
 });
 
-// setInterval(
-//     function(){
-//         if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
-//             alert(player1GlobalScore + "\n" + player2GlobalScore);
-//         }
-//         // alert("Bruv");
-//     }, 5000,
-// );
+var playerGlobalScore = document.querySelectorAll('.player-global-score');
+var playerOneGlobalScore = document.getElementById('player1-global-score');
+var playerTwoGlobalScore = document.getElementById('player2-global-score');
+ 
+// var callback = (meh) =>{
+//     // console.log(meh);
+//     var scoreOne = parseInt(playerOneGlobalScore.innerHTML, 10);
 
-var foo = document.getElementById('player1-global-score');
-// alert(foo.innerHTML);
-// console.log(typeof foo.TEXT_NODE);
-
-var callback = function(){
-    // if((player1GlobalScore >= 20 || player2GlobalScore >= 20)){
-    //     alert(player1GlobalScore + "\n" + player2GlobalScore);
-    // }
-}
+//     if(scoreOne >= 20){
+//         alert("You win with a score of" + scoreOne + "!");
+//     }
+// }
 
 var config = {
     characterData: true,
     childList: true
 }
 
+// var observer = new MutationObserver(callback);
+// observer.observe(playerOneGlobalScore, config);
+
+// var nodeListLopper = function(nodeList, callback){
+//     for(var i = 0; i <= nodeList.length; i++){
+//         return nodeList[i];
+//     }
+// }
+
+var someFunct = function(node){
+    var playerScore = parseInt(node.innerHTML);
+    if(playerScore >= 20){
+        alert("High score reached");
+    }
+};
+
 var observer = new MutationObserver(bar => {
     // alert('Shit just changed bruv');
-    console.log(bar);
+    // console.log(bar);
+    for(var i = 0; i < playerGlobalScore.length; i++){
+        // console.log(i + " = " + playerGlobalScore[i].innerHTML);
+        someFunct(playerGlobalScore);
+    }
 });
-observer.observe(foo, config);
+
+observer.observe(playerOneGlobalScore, config);
 
 holdBtn.addEventListener('click', function(){
     var activeStatus, playerGlobalScore;
