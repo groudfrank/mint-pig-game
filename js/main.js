@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-//DOM variables
+// DOM variables
 var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerOneGlobalScore, playerTwoGlobalScore;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
@@ -14,11 +14,10 @@ playerOneGlobalScore = document.getElementById('player1-global-score');
 playerTwoGlobalScore = document.getElementById('player2-global-score');
 
 // Regular variables
-var rollValue, numToWord, roundScore;
+var rollValue, roundScore, numToWord, maxGlobalScore;
 rollValue = 0;
 roundScore = 0;
 numToWord = "";
-roundScore = 0;
 maxGlobalScore = 100;
 var diceValues = {
     1:'one',
