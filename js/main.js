@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerOneGlobalScore, playerTwoGlobalScore;
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerOneGlobalScore, playerTwoGlobalScore, newGameBtn;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
@@ -12,6 +12,7 @@ player1Box = playerBox[0].querySelector('.player-global-score');
 player2Box = playerBox[1].querySelector('.player-global-score');
 playerOneGlobalScore = document.getElementById('player1-global-score');
 playerTwoGlobalScore = document.getElementById('player2-global-score');
+newGameBtn = document.getElementById('new-game-btn');
 
 // Regular variables
 var rollValue, roundScore, numToWord, maxGlobalScore;
@@ -63,6 +64,10 @@ function changeDice(number){
     dice.className = "fas fa-dice-" + numToWord;
     numericalDiceValue.innerHTML = number;
 }
+
+newGameBtn.addEventListener('click', function(){
+    alert('clicked');
+})
 
 rollDiceBtn.addEventListener('click', function(){
     rollValue = Math.floor((Math.random() * 6) + 1);
