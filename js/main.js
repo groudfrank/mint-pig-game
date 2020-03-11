@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, playerOneGlobalScore, playerTwoGlobalScore, newGameBtn;
+var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
+    playerOneGlobalScore, playerTwoGlobalScore, playerGlobalScore,
+    newGameBtn;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
@@ -12,6 +14,7 @@ player1Box = playerBox[0].querySelector('.player-global-score');
 player2Box = playerBox[1].querySelector('.player-global-score');
 playerOneGlobalScore = document.getElementById('player1-global-score');
 playerTwoGlobalScore = document.getElementById('player2-global-score');
+playerGlobalScore = document.querySelectorAll('player-global-score');
 newGameBtn = document.getElementById('new-game-btn');
 
 // Regular variables
@@ -66,7 +69,11 @@ function changeDice(number){
 }
 
 newGameBtn.addEventListener('click', function(){
-    alert('clicked');
+    playerOneGlobalScore.innerHTML = 0;
+    playerTwoGlobalScore.innerHTML = 0;
+    numericalDiceValue.innerHTML = '∞';
+    dice.className = 'fas fa-dice';
+    // alert('clicked');
 })
 
 rollDiceBtn.addEventListener('click', function(){
@@ -126,14 +133,14 @@ PlayerOneObserver.observe(playerOneGlobalScore, MutationConfig);
 PlayerTwoObserver.observe(playerTwoGlobalScore, MutationConfig);
 
 holdBtn.addEventListener('click', function(){
-    var activeStatus, playerGlobalScore;
+    var activeStatus, globalTotal;
     activeStatus = "";
     playerBox.forEach(function(node){
         activeStatus = node.classList.contains('is-active-player');
         var currentRoundScore = node.querySelector('.player-current-round-score');
-        playerGlobalScore = node.querySelector('.player-global-score');
+        globalTotal = node.querySelector('.player-global-score');
         if(activeStatus == true){
-            playerGlobalScore.innerHTML = parseInt(playerGlobalScore.innerHTML) + roundScore;
+            globalTotal.innerHTML = parseInt(globalTotal.innerHTML) + roundScore;
             roundScore = 0;
             currentRoundScore.innerHTML = 0;
         }
