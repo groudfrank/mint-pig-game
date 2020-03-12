@@ -2,16 +2,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
 var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
-    playerOneGlobalScore, playerTwoGlobalScore, playerGlobalScore,
-    newGameBtn;
+    playerOneGlobalScore, playerTwoGlobalScore,
+    playerGlobalScore, newGameBtn;
 
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
 numericalDiceValue = document.getElementById('numerical-dice-value');
 playerBox = document.querySelectorAll('.player-box');
-player1Box = playerBox[0].querySelector('.player-global-score');
-player2Box = playerBox[1].querySelector('.player-global-score');
+// playerOneBox = playerBox[0];
+// playerTwoBox = playerBox[1];
 playerOneGlobalScore = document.getElementById('player1-global-score');
 playerTwoGlobalScore = document.getElementById('player2-global-score');
 playerGlobalScore = document.querySelectorAll('player-global-score');
@@ -68,12 +68,19 @@ function changeDice(number){
     numericalDiceValue.innerHTML = number;
 }
 
-newGameBtn.addEventListener('click', function(){
+function clearFields(){
     playerOneGlobalScore.innerHTML = 0;
     playerTwoGlobalScore.innerHTML = 0;
     numericalDiceValue.innerHTML = '∞';
     dice.className = 'fas fa-dice';
-    // alert('clicked');
+
+    if(playerBox[0].classList.contains('is-active-player') == false){
+        activePlayerToggle(visibilityToggle);
+    }
+}
+
+newGameBtn.addEventListener('click', function(){
+    clearFields();
 })
 
 rollDiceBtn.addEventListener('click', function(){
