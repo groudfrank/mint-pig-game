@@ -71,7 +71,7 @@ function changeDice(number){
 function clearFields(){
     playerOneGlobalScore.innerHTML = 0;
     playerTwoGlobalScore.innerHTML = 0;
-    numericalDiceValue.innerHTML = '∞';
+    numericalDiceValue.innerHTML = 'X';
     dice.className = 'fas fa-dice';
 
     if(playerBox[0].classList.contains('is-active-player') == false){
@@ -90,11 +90,6 @@ rollDiceBtn.addEventListener('click', function(){
     var activePlayerFlag = false;
     var activeStatus = "";
     var currentRoundScore;
-
-    // checks the global score
-    // Also learned a little trick for converting a string to a number. Prepend the plus symbol.
-    player1GlobalScore = +playerBox[0].querySelector('.player-global-score').innerHTML;
-    player2GlobalScore = +playerBox[1].querySelector('.player-global-score').innerHTML;
 
     playerBox.forEach(function(node){
        activeStatus = node.classList.contains('is-active-player');
