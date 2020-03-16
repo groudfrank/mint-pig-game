@@ -1,17 +1,18 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
-var rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
+var root, rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
     playerOneGlobalScore, playerTwoGlobalScore,
-    playerGlobalScore, newGameBtn;
+    playerGlobalScore, newGameBtn, settingBtn, mainBoard;
 
+root = document.querySelector(':root');
+mainBoard = document.getElementById('main-board');
+settingsBtn = document.getElementById('settings-btn');
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
 numericalDiceValue = document.getElementById('numerical-dice-value');
 playerBox = document.querySelectorAll('.player-box');
-// playerOneBox = playerBox[0];
-// playerTwoBox = playerBox[1];
 playerOneGlobalScore = document.getElementById('player1-global-score');
 playerTwoGlobalScore = document.getElementById('player2-global-score');
 playerGlobalScore = document.querySelectorAll('player-global-score');
@@ -79,6 +80,29 @@ function clearFields(){
     }
 }
 
+var updateProperty = (node, obj) => {
+    var property_entries = Object.entries(obj);
+    var property;
+    var value;
+    // Decontstructs the arrayx gets the property-values and 
+    // updates the node passed in as arguments.
+    property_entries.forEach(entry => {
+        property = entry[0];
+        value = entry[1];
+        node.style.setProperty(property, value);
+    });   
+}
+
+settingsBtn.addEventListener('click', function(){
+    if(mainBoard.classList.contains('dark-theme-active') == false){
+        updateProperty(root, darkTheme);
+        mainBoard.classList.add('dark-theme-active');
+    } else {
+        updateProperty(root, lightTheme);
+        mainBoard.classList.remove('dark-theme-active');
+    }
+});
+
 newGameBtn.addEventListener('click', function(){
     clearFields();
 })
@@ -108,8 +132,8 @@ rollDiceBtn.addEventListener('click', function(){
                 // For some reason trying at call activePLayerToogle() here causes issues
                 // when ran inside the forEach loop so I've added a var called functCallFag
                 // which acts as a flag for whether or not activePlayerToogle() should be called.
-                // An if statement outside the loop will check the value of of cuntCallFlag and 
-                // determine whether or not activePLayerToggle() should be called/               
+                // An if statement outside the loop will check the value of of countCallFlag and 
+                // determine whether or not activePLayerToggle() should be called.             
             }
        }
 
@@ -149,5 +173,25 @@ holdBtn.addEventListener('click', function(){
      });
      activePlayerToggle(visibilityToggle);   
 });
+
+var lightTheme = {
+    "--theme-txt-color-inverted" : "#000",
+    "--theme-txt-color-inverted-contrasted" : "#555",
+    "--theme-color": "#fff",
+    "--theme-color-contrasted" : "#f5f5f5",
+    "--theme-txt-color" : "#fff",
+    "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15)",
+    "--board-btn-background" : "rgba(0,0,0,0.07)"
+}
+
+var darkTheme = {
+    "--theme-txt-color-inverted" : "#000",
+    "--theme-txt-color-inverted-contrasted" : "#555",
+    "--theme-color": "#222",
+    "--theme-color-contrasted" : "#333",
+    "--theme-txt-color" : "#fff",
+    "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,0.4)",
+    "--board-btn-background" : "rgba(255,255,255,0.06)"
+}
 
 });
