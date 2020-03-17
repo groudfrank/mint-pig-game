@@ -180,18 +180,20 @@ var lightTheme = {
     "--theme-color": "#fff",
     "--theme-color-contrasted" : "#f5f5f5",
     "--theme-txt-color" : "#fff",
+    "--txt-shadow-lv1" : "0 10px 10px rgba(0,0,0,0.1)",
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15)",
     "--board-btn-background" : "rgba(0,0,0,0.07)"
 }
 
 var darkTheme = {
     "--theme-txt-color-inverted" : "#000",
-    "--theme-txt-color-inverted-contrasted" : "#555",
+    "--theme-txt-color-inverted-contrasted" : "#d8d8d8",
     "--theme-color": "#222",
     "--theme-color-contrasted" : "#333",
-    "--theme-txt-color" : "#fff",
+    "--theme-txt-color" : "#111",
+    "--txt-shadow-lv1" : "0 10px 10px rgba(0,0,0,0.5)",
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,0.4)",
-    "--board-btn-background" : "rgba(255,255,255,0.06)"
+    "--board-btn-background" : "rgba(255,255,255,0.1)"
 }
 
 });
