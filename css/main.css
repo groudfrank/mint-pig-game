@@ -71,6 +71,7 @@ body{
     align-items: center;
     width: 500px;
     height: 60vh;
+    overflow-y: scroll;
     border: dashed 2px teal;
 }
 
@@ -104,18 +105,19 @@ body{
     height: auto;
     border-radius: 4px;
     background: var(--theme-color);
-    padding: 5px;
+    box-sizing: border-box;
+    padding: 10px 30px;
     margin: 0px 0px 10px 0px;
 }
 
 .settings-panel-heading{
-    font-size: 16px;
+    font-size: 18px;
     color: var(--primary-color);
     background: transparent;
     margin-bottom: 10px;
 }
 
-.settings-panel-subsection{
+.settings-panel-component{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,8 +128,42 @@ body{
     margin-bottom: 12px;
     border-radius: 4px;
     box-sizing: border-box;
-    box-shadow: 0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     background: var(--theme-color);
+}
+
+.settings-panel-component h5{
+    margin-bottom: 5px;
+}
+
+.theme-btn-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: solid 1px teal; */
+}
+
+.theme-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin: 5px 20px;
+    /* border: solid 1px teal; */
+    border-radius: 4px;
+    background: var(--board-btn-background);
+    transition: box-shadow 200ms ease;
+}
+
+.theme-btn:hover{
+    box-shadow: var(--board-btn-shadow);
+}
+
+.theme-btn i{
+    font-size: 30px;
+    color: var(--primary-color);
 }
 
 #main-board{

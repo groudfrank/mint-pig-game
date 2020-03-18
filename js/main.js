@@ -190,10 +190,10 @@ var darkTheme = {
     "--theme-txt-color-inverted-contrasted" : "#d8d8d8",
     "--theme-color": "#222",
     "--theme-color-contrasted" : "#333",
-    "--theme-txt-color" : "#111",
+    "--theme-txt-color" : "#222",
     "--txt-shadow-lv1" : "0 10px 10px rgba(0,0,0,0.5)",
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,0.4)",
-    "--board-btn-background" : "rgba(255,255,255,0.1)"
+    "--board-btn-background" : "rgba(255,255,255,0.07)"
 }
 
 });
