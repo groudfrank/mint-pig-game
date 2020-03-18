@@ -2,12 +2,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
 var root, rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
-    playerOneGlobalScore, playerTwoGlobalScore,
-    playerGlobalScore, newGameBtn, settingBtn, mainBoard;
+    playerOneGlobalScore, playerTwoGlobalScore, settingsWrapper,
+    playerGlobalScore, newGameBtn, settingsBtn, mainBoard, lightThemeBtn,
+    darkThemeBtn, AutomaticThemeBtn, themeBtn;
 
 root = document.querySelector(':root');
 mainBoard = document.getElementById('main-board');
+settingsWrapper = document.getElementById('settings-wrapper');
 settingsBtn = document.getElementById('settings-btn');
+themeBtn = document.querySelectorAll('.theme-btn');
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
@@ -94,13 +97,30 @@ var updateProperty = (node, obj) => {
 }
 
 settingsBtn.addEventListener('click', function(){
-    if(mainBoard.classList.contains('dark-theme-active') == false){
-        updateProperty(root, darkTheme);
-        mainBoard.classList.add('dark-theme-active');
-    } else {
-        updateProperty(root, lightTheme);
-        mainBoard.classList.remove('dark-theme-active');
+    // if(mainBoard.classList.contains('dark-theme-active') == false){
+    //     updateProperty(root, darkTheme);
+    //     mainBoard.classList.add('dark-theme-active');
+    // } else {
+    //     updateProperty(root, lightTheme);
+    //     mainBoard.classList.remove('dark-theme-active');
+    // }
+    if(settingsWrapper.classList.contains('no-display')){
+        settingsWrapper.classList.remove('no-display');
+    } else{
+        settingsWrapper.classList.add('no-display');
     }
+});
+
+themeBtn.forEach(function(node){
+    node.addEventListener('click', function(){
+        if(node.id == 'light-theme-btn'){
+            updateProperty(root, lightTheme);
+        } else if(node.id == 'dark-theme-btn'){
+            updateProperty(root, darkTheme);
+        } else if(node.id == 'automatic-theme-btn'){
+            alert('feature not operational yet');
+        }
+    });
 });
 
 newGameBtn.addEventListener('click', function(){
