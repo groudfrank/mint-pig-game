@@ -75,7 +75,7 @@ function changeDice(number){
 function clearFields(){
     playerOneGlobalScore.innerHTML = 0;
     playerTwoGlobalScore.innerHTML = 0;
-    numericalDiceValue.innerHTML = 'X';
+    numericalDiceValue.innerHTML = '0';
     dice.className = 'fas fa-dice';
 
     if(playerBox[0].classList.contains('is-active-player') == false){
@@ -215,5 +215,7 @@ var darkTheme = {
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,0.4)",
     "--board-btn-background" : "rgba(255,255,255,0.07)"
 }
+
+console.log(window.getComputedStyle(root));
 
 });
