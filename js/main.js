@@ -11,6 +11,7 @@ mainBoard = document.getElementById('main-board');
 settingsWrapper = document.getElementById('settings-wrapper');
 settingsBtn = document.getElementById('settings-btn');
 themeBtn = document.querySelectorAll('.theme-btn');
+colorSelectionBtn = document.querySelectorAll('.color-selection-btn');
 rollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
 holdBtn = document.getElementById('hold-btn');
@@ -83,12 +84,20 @@ function clearFields(){
     }
 }
 
+// This function takes two arguments. One is the target node('root' in this case) while
+// the other takes an object literal made of property-value pairs used to replace those
+// that correspond with the property-value pairs in the node/element that was passed as 
+// the first argument(bait and switch basically). It constructs a new array, consisting
+// of multiple arrays which are themselves made of the property-value pair that the
+// Object.entries() function returns and stores them in property_entries.
+// The function then loops through property_entries, extacts the property-value pair of
+// each array member, assigns it to.... 
 var updateProperty = (node, obj) => {
-    var property_entries = Object.entries(obj);
+    var property_entries = Object.entries(obj); // property_entries = [[key, value],[key, value], etc]
     var property;
     var value;
-    // Decontstructs the arrayx gets the property-values and 
-    // updates the node passed in as arguments.
+    // Loops through the newly created array of arrays(property_entries) and grabs
+    // the first(entry[0]) and second(entry[1]) values of each array entry. 
     property_entries.forEach(entry => {
         property = entry[0];
         value = entry[1];
@@ -120,6 +129,12 @@ themeBtn.forEach(function(node){
         } else if(node.id == 'automatic-theme-btn'){
             alert('feature not operational yet');
         }
+    });
+});
+
+colorSelectionBtn.forEach(function(node){
+    node.addEventListener('click', function(){
+        // console.log('you clicked ' + node.classList);
     });
 });
 
