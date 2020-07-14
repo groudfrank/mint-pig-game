@@ -1,34 +1,35 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 // DOM variables
-var root, rollDiceBtn, dice, holdBtn, numericalDiceValue, playerBox, 
-    playerOneGlobalScore, playerTwoGlobalScore, settingsWrapper,
-    playerGlobalScore, newGameBtn, settingsBtn, mainBoard, lightThemeBtn,
-    darkThemeBtn, AutomaticThemeBtn, themeBtn;
+var root, RollDiceBtn, dice, HoldBtn, NumericalDiceValue, PlayerBox, 
+    PlayerOneGlobalScore, PlayerTwoGlobalScore, SettingsWrapper,
+    PlayerGlobalScore, NewGameBtn, SettingsBtn, MainBoard, LightThemeBtn,
+    DarkThemeBtn, AutomaticThemeBtn, ThemeBtn;
 
 root = document.querySelector(':root');
-mainBoard = document.getElementById('main-board');
-settingsWrapper = document.getElementById('settings-wrapper');
-settingsBtn = document.getElementById('settings-btn');
-themeBtn = document.querySelectorAll('.theme-btn');
-colorSelectionBtn = document.querySelectorAll('.color-selection-btn');
-rollDiceBtn = document.getElementById('roll-dice-btn');
+MainBoard = document.getElementById('main-board');
+SettingsWrapper = document.getElementById('settings-wrapper');
+SettingsBtn = document.getElementById('settings-btn');
+ThemeBtn = document.querySelectorAll('.theme-btn');
+ColorSelectionBtn  = document.querySelectorAll('.color-selection-btn');
+GradientPalette = document.querySelectorAll('.gradient-palette');
+RollDiceBtn = document.getElementById('roll-dice-btn');
 dice = document.getElementById('dice');
-holdBtn = document.getElementById('hold-btn');
-numericalDiceValue = document.getElementById('numerical-dice-value');
-playerBox = document.querySelectorAll('.player-box');
-playerOneGlobalScore = document.getElementById('player1-global-score');
-playerTwoGlobalScore = document.getElementById('player2-global-score');
-playerGlobalScore = document.querySelectorAll('player-global-score');
-newGameBtn = document.getElementById('new-game-btn');
+HoldBtn = document.getElementById('hold-btn');
+NumericalDiceValue = document.getElementById('numerical-dice-value');
+PlayerBox = document.querySelectorAll('.player-box');
+PlayerOneGlobalScore = document.getElementById('player1-global-score');
+PlayerTwoGlobalScore = document.getElementById('player2-global-score');
+PlayerGlobalScore = document.querySelectorAll('player-global-score');
+NewGameBtn = document.getElementById('new-game-btn');
 
 // Regular variables
-var rollValue, roundScore, numToWord, maxGlobalScore;
-rollValue = 0;
-roundScore = 0;
-numToWord = "";
-maxGlobalScore = 100;
-var diceValues = {
+var RollValue, RoundScore, NumToWord, MaxGlobalScore;
+RollValue = 0;
+RoundScore = 0;
+NumToWord = "";
+MaxGlobalScore = 100;
+var DiceValues = {
     1:'one',
     2:'two', 
     3:'three',
@@ -47,7 +48,7 @@ visibilityToggle();
 // due to activePlayerToggle, visibilityToggle will then make the active
 // player indicator visible.
 function visibilityToggle(){
-    playerBox.forEach(function(node){
+    PlayerBox.forEach(function(node){
         if(node.classList.contains('is-active-player') == true){
             node.querySelector('.active-player-indicator').classList.remove('hide-me');
         } else{
@@ -57,7 +58,7 @@ function visibilityToggle(){
 }
 
 function activePlayerToggle(callback){
-    playerBox.forEach(function(node){
+    PlayerBox.forEach(function(node){
         if(node.classList.contains('is-active-player') == true){
             node.classList.remove('is-active-player');
         } else{
@@ -68,102 +69,130 @@ function activePlayerToggle(callback){
 }
 
 function changeDice(number){
-    numToWord = diceValues[number];
-    dice.className = "fas fa-dice-" + numToWord;
-    numericalDiceValue.innerHTML = number;
+    NumToWord = DiceValues[number];
+    dice.className = "fas fa-dice-" + NumToWord;
+    NumericalDiceValue.innerHTML = number;
 }
 
 function clearFields(){
-    playerOneGlobalScore.innerHTML = 0;
-    playerTwoGlobalScore.innerHTML = 0;
-    numericalDiceValue.innerHTML = '0';
+    PlayerOneGlobalScore.innerHTML = 0;
+    PlayerTwoGlobalScore.innerHTML = 0;
+    NumericalDiceValue.innerHTML = '0';
     dice.className = 'fas fa-dice';
 
-    if(playerBox[0].classList.contains('is-active-player') == false){
+    if(PlayerBox[0].classList.contains('is-active-player') == false){
         activePlayerToggle(visibilityToggle);
     }
 }
 
 // This function takes two arguments. One is the target node('root' in this case) while
-// the other takes an object literal made of property-value pairs used to replace those
+// the other takes an object literal with property-value pairs used to replace those
 // that correspond with the property-value pairs in the node/element that was passed as 
 // the first argument(bait and switch basically). It constructs a new array, consisting
 // of multiple arrays which are themselves made of the property-value pair that the
-// Object.entries() function returns and stores them in property_entries.
-// The function then loops through property_entries, extacts the property-value pair of
-// each array member, assigns it to.... 
+// Object.entries() function returns and stores them in PropertyEntries.
+// The function then loops through PropertyEntries, extacts the property-value pair of
+// each array member and sets the properties (setProperty()) on the target node(root).
 var updateProperty = (node, obj) => {
-    var property_entries = Object.entries(obj); // property_entries = [[key, value],[key, value], etc]
+    var PropertyEntries = Object.entries(obj); // PropertyEntries = [[key, value],[key, value], etc]
     var property;
     var value;
-    // Loops through the newly created array of arrays(property_entries) and grabs
+    // Loops through the newly created array of arrays(PropertyEntries) and grabs
     // the first(entry[0]) and second(entry[1]) values of each array entry. 
-    property_entries.forEach(entry => {
+    PropertyEntries.forEach(entry => {
         property = entry[0];
         value = entry[1];
         node.style.setProperty(property, value);
     });   
 }
 
-settingsBtn.addEventListener('click', function(){
-    // if(mainBoard.classList.contains('dark-theme-active') == false){
-    //     updateProperty(root, darkTheme);
-    //     mainBoard.classList.add('dark-theme-active');
-    // } else {
-    //     updateProperty(root, lightTheme);
-    //     mainBoard.classList.remove('dark-theme-active');
-    // }
-    if(settingsWrapper.classList.contains('no-display')){
-        settingsWrapper.classList.remove('no-display');
+// Sets styles on the --primary-color and --secondary-color variables
+var changeThemeColor = (node, primary, secondary) => {
+    node.style.setProperty('--primary-color', primary);
+    node.style.setProperty('--secondary-color', secondary);
+};
+
+var propertyValueExtractor = (node, property) => {
+    var PropertyValues = window.getComputedStyle(node);
+    var FetchedPropertyValue = PropertyValues.getPropertyValue(property);
+    return FetchedPropertyValue;
+};
+
+var gradientColorExtractor = (node, property) => {
+    var PropertyString = propertyValueExtractor(node, property);
+    PropertyString = PropertyString.replace(/\s|[a-z]|[A-Z]|\-/g, '');
+    PropertyString = PropertyString.slice(2, -1);
+    PropertyString = PropertyString.replace('),(',') (');
+    PropertyStringArray = PropertyString.split(" ");
+
+    for(var i in PropertyStringArray){
+        PropertyStringArray[i] = 'rgb' + PropertyStringArray[i];
+        console.log('append rgb = ' + PropertyStringArray[i]);
+    }
+  
+    return PropertyStringArray;
+};
+
+GradientPalette.forEach((el) => {
+    el.addEventListener('click', () =>  {
+        var primary_color = gradientColorExtractor(el, 'background-image')[0];
+        var secondary_color = gradientColorExtractor(el, 'background-image')[1];
+        changeThemeColor(root, primary_color, secondary_color);
+    })
+});
+
+SettingsBtn.addEventListener('click', function(){
+    if(SettingsWrapper.classList.contains('no-display')){
+        SettingsWrapper.classList.remove('no-display');
     } else{
-        settingsWrapper.classList.add('no-display');
+        SettingsWrapper.classList.add('no-display');
     }
 });
 
-themeBtn.forEach(function(node){
+ThemeBtn.forEach(function(node){
     node.addEventListener('click', function(){
         if(node.id == 'light-theme-btn'){
-            updateProperty(root, lightTheme);
+            updateProperty(root, LightTheme);
         } else if(node.id == 'dark-theme-btn'){
-            updateProperty(root, darkTheme);
+            updateProperty(root, DarkTheme);
         } else if(node.id == 'automatic-theme-btn'){
             alert('feature not operational yet');
         }
     });
 });
 
-colorSelectionBtn.forEach(function(node){
+ColorSelectionBtn.forEach(function(node){
     node.addEventListener('click', function(){
         // console.log('you clicked ' + node.classList);
     });
 });
 
-newGameBtn.addEventListener('click', function(){
+NewGameBtn.addEventListener('click', function(){
     clearFields();
 })
 
-rollDiceBtn.addEventListener('click', function(){
-    rollValue = Math.floor((Math.random() * 6) + 1);
-    changeDice(rollValue);
+RollDiceBtn.addEventListener('click', function(){
+    RollValue = Math.floor((Math.random() * 6) + 1);
+    changeDice(RollValue);
 
-    var activePlayerFlag = false;
-    var activeStatus = "";
-    var currentRoundScore;
+    var ActivePlayerFlag = false;
+    var ActiveStatus = "";
+    var CurrentRoundScore;
 
-    playerBox.forEach(function(node){
-       activeStatus = node.classList.contains('is-active-player');
-       currentRoundScore = node.querySelector('.player-current-round-score');
+    PlayerBox.forEach(function(node){
+       ActiveStatus = node.classList.contains('is-active-player');
+       CurrentRoundScore = node.querySelector('.player-current-round-score');
 
-       if(activeStatus == true){ // locks score changes to the current player class elements
-            if(rollValue != 1){
-                roundScore += rollValue;
-                currentRoundScore.innerHTML = roundScore;
+       if(ActiveStatus == true){ // locks score changes to the current player class elements
+            if(RollValue != 1){
+                RoundScore += RollValue;
+                CurrentRoundScore.innerHTML = RoundScore;
                 scoreCheckFlag = true;
             }
             else{
-                roundScore = 0;
-                currentRoundScore.innerHTML = roundScore;
-                activePlayerFlag = true; 
+                RoundScore = 0;
+                CurrentRoundScore.innerHTML = RoundScore;
+                ActivePlayerFlag = true; 
                 // For some reason trying at call activePLayerToogle() here causes issues
                 // when ran inside the forEach loop so I've added a var called functCallFag
                 // which acts as a flag for whether or not activePlayerToogle() should be called.
@@ -175,7 +204,7 @@ rollDiceBtn.addEventListener('click', function(){
             
     });
 
-    if(activePlayerFlag == true){activePlayerToggle(visibilityToggle);}
+    if(ActivePlayerFlag == true){activePlayerToggle(visibilityToggle);}
 
 });
  
@@ -188,28 +217,28 @@ var MutationCallback = (node) =>{
 }
 
 var MutationConfig = {childList: true}
-var PlayerOneObserver = new MutationObserver(() => {MutationCallback(playerOneGlobalScore);});
-var PlayerTwoObserver = new MutationObserver(() => {MutationCallback(playerTwoGlobalScore);});
-PlayerOneObserver.observe(playerOneGlobalScore, MutationConfig);
-PlayerTwoObserver.observe(playerTwoGlobalScore, MutationConfig);
+var PlayerOneObserver = new MutationObserver(() => {MutationCallback(PlayerOneGlobalScore);});
+var PlayerTwoObserver = new MutationObserver(() => {MutationCallback(PlayerTwoGlobalScore);});
+PlayerOneObserver.observe(PlayerOneGlobalScore, MutationConfig);
+PlayerTwoObserver.observe(PlayerTwoGlobalScore, MutationConfig);
 
-holdBtn.addEventListener('click', function(){
-    var activeStatus, globalTotal;
-    activeStatus = "";
-    playerBox.forEach(function(node){
-        activeStatus = node.classList.contains('is-active-player');
-        var currentRoundScore = node.querySelector('.player-current-round-score');
-        globalTotal = node.querySelector('.player-global-score');
-        if(activeStatus == true){
-            globalTotal.innerHTML = parseInt(globalTotal.innerHTML) + roundScore;
-            roundScore = 0;
-            currentRoundScore.innerHTML = 0;
+HoldBtn.addEventListener('click', function(){
+    var ActiveStatus, GlobalTotal;
+    ActiveStatus = "";
+    PlayerBox.forEach(function(node){
+        ActiveStatus = node.classList.contains('is-active-player');
+        var CurrentRoundScore = node.querySelector('.player-current-round-score');
+        GlobalTotal = node.querySelector('.player-global-score');
+        if(ActiveStatus == true){
+            GlobalTotal.innerHTML = parseInt(GlobalTotal.innerHTML) + RoundScore;
+            RoundScore = 0;
+            CurrentRoundScore.innerHTML = 0;
         }
      });
      activePlayerToggle(visibilityToggle);   
 });
 
-var lightTheme = {
+var LightTheme = {
     "--theme-txt-color-inverted" : "#000",
     "--theme-txt-color-inverted-contrasted" : "#555",
     "--theme-color": "#fff",
@@ -220,7 +249,7 @@ var lightTheme = {
     "--board-btn-background" : "rgba(0,0,0,0.07)"
 }
 
-var darkTheme = {
+var DarkTheme = {
     "--theme-txt-color-inverted" : "#000",
     "--theme-txt-color-inverted-contrasted" : "#d8d8d8",
     "--theme-color": "#222",
