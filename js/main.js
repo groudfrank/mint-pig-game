@@ -127,7 +127,7 @@ var gradientColorExtractor = (node, property) => {
 
     for(var i in PropertyStringArray){
         PropertyStringArray[i] = 'rgb' + PropertyStringArray[i];
-        console.log('append rgb = ' + PropertyStringArray[i]);
+        // console.log('append rgb = ' + PropertyStringArray[i]);
     }
   
     return PropertyStringArray;
@@ -135,9 +135,15 @@ var gradientColorExtractor = (node, property) => {
 
 GradientPalette.forEach((el) => {
     el.addEventListener('click', () =>  {
-        var primary_color = gradientColorExtractor(el, 'background-image')[0];
-        var secondary_color = gradientColorExtractor(el, 'background-image')[1];
-        changeThemeColor(root, primary_color, secondary_color);
+        var SetBoxShadowTheme = gradientColorExtractor(el, 'background-image')[0]
+        SetBoxShadowTheme = SetBoxShadowTheme.replace('rgb','rgba');
+        SetBoxShadowTheme = SetBoxShadowTheme.replace(')',',0.50)');
+        // console.log(SetBoxShadowTheme);
+        var PrimaryColor = gradientColorExtractor(el, 'background-image')[0];
+        var SecondaryColor = gradientColorExtractor(el, 'background-image')[1];
+        changeThemeColor(root, PrimaryColor, SecondaryColor);
+        root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + SetBoxShadowTheme);
+        root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + SetBoxShadowTheme);
     })
 });
 
@@ -152,9 +158,17 @@ SettingsBtn.addEventListener('click', function(){
 ThemeBtn.forEach(function(node){
     node.addEventListener('click', function(){
         if(node.id == 'light-theme-btn'){
+            MainBoard.classList.add('light-theme-applied');
+            MainBoard.classList.remove('dark-theme-applied')
             updateProperty(root, LightTheme);
         } else if(node.id == 'dark-theme-btn'){
+            MainBoard.classList.remove('light-theme-applied');
+            MainBoard.classList.add('dark-theme-applied');
             updateProperty(root, DarkTheme);
+            if(MainBoard.classList.contains('dark-theme-applied') == true){
+                root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px rgba(0,0,0,0.7)');
+                root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px rgba(0,0,0,0.7)');
+            }
         } else if(node.id == 'automatic-theme-btn'){
             alert('feature not operational yet');
         }
@@ -244,7 +258,7 @@ var LightTheme = {
     "--theme-color": "#fff",
     "--theme-color-contrasted" : "#f5f5f5",
     "--theme-txt-color" : "#fff",
-    "--txt-shadow-lv1" : "0 10px 10px rgba(0,0,0,0.1)",
+    "--txt-shadow-xsm" : "0 10px 10px rgba(0,0,0,0.1)",
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15)",
     "--board-btn-background" : "rgba(0,0,0,0.07)"
 }
@@ -255,7 +269,7 @@ var DarkTheme = {
     "--theme-color": "#222",
     "--theme-color-contrasted" : "#333",
     "--theme-txt-color" : "#222",
-    "--txt-shadow-lv1" : "0 10px 10px rgba(0,0,0,0.5)",
+    "--txt-shadow-xsm" : "0 10px 10px rgba(0,0,0,0.5)",
     "--board-btn-shadow" : "0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,0.4)",
     "--board-btn-background" : "rgba(255,255,255,0.07)"
 }

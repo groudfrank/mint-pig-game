@@ -8,10 +8,10 @@
     --theme-color-contrasted: #f5f5f5;
     --primary-color: #15bd87;
     --secondary-color: #33E9AD;
-    --primary-color-box-shadow-lv1: 0 8px 16px rgba(21,189,135,0.50);
-    --primary-color-box-shadow-lv2: 0 4px 5px rgba(21,189,135,0.50);
+    --primary-color-box-shadow-sm: 0 8px 16px rgba(21,189,135,0.50);
+    --primary-color-box-shadow-xsm: 0 4px 5px rgba(21,189,135,0.50);
     --theme-txt-color: #fff;
-    --txt-shadow-lv1: 0 10px 10px rgba(0,0,0,0.1);
+    --txt-shadow-xsm: 0 10px 10px rgba(0,0,0,0.1);
     --board-btn-shadow: 0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15);
     --board-btn-background: rgba(0,0,0,0.05);
 }
@@ -254,7 +254,7 @@ body{
     color: var(--theme-txt-color);
     font-size: 113px;
     font-weight: bold;
-    text-shadow: var(--txt-shadow-lv1);
+    text-shadow: var(--txt-shadow-xsm);
 }
 
 #new-game-btn{
@@ -282,7 +282,7 @@ body{
     width: 10%;
     height: 10px;
     background-color: linear-gradient(to right, #15bd87, #33E9AD);
-    box-shadow: var(--primary-color-box-shadow-lv2);
+    box-shadow: var(--primary-color-box-shadow-xsm);
     border-radius: 3px;
     background-color: var(--primary-color);
 
@@ -317,7 +317,7 @@ body{
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    box-shadow: var(--primary-color-box-shadow-lv1);
+    box-shadow: var(--primary-color-box-shadow-sm);
     margin: 0em 0em 5em 0em;
     border-radius: 5px;
 }
