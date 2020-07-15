@@ -112,12 +112,29 @@ var changeThemeColor = (node, primary, secondary) => {
     node.style.setProperty('--secondary-color', secondary);
 };
 
+// Returns the property value of a an element. Both the target element and 
+// proptery are passed in as args.
+//NB: getPropertyValue() returns all hex code as rgb.
 var propertyValueExtractor = (node, property) => {
     var PropertyValues = window.getComputedStyle(node);
     var FetchedPropertyValue = PropertyValues.getPropertyValue(property);
+    console.log(FetchedPropertyValue);
     return FetchedPropertyValue;
 };
 
+// This function works hand in hand with propertyValueExtractor() and all it
+// does is extract the gradient color values from the 'background-image' css property.
+// This is necessary because propertyValueExtractor returns a string containing all 
+// the necessary syntax for background-image to work:
+// e.g. 'linear-gradient(to right, #15bd87, #85948b)'
+// In addition to this all hex code returned by getPropertyValue() is converted to 
+// rgb so 'linear-gradient(to right, #15bd87, #85948b)' looks like this:
+//        'linear-gradient(to right, rgb(21, 189, 135), rgb(51, 233, 173)'
+// In order to strip away the unncessary syntax and just leave the rgb values I had to
+// remove all alpha characters and re-add 'rgb' to the stripped string. 
+// That is done in the for loop which also stores the rgb values in an array.
+// The array values can be accessed by indexing them e.g. index[0] = primary index[1] = secondary.
+// For now it only works with 2 rgb colors.
 var gradientColorExtractor = (node, property) => {
     var PropertyString = propertyValueExtractor(node, property);
     PropertyString = PropertyString.replace(/\s|[a-z]|[A-Z]|\-/g, '');
@@ -127,23 +144,33 @@ var gradientColorExtractor = (node, property) => {
 
     for(var i in PropertyStringArray){
         PropertyStringArray[i] = 'rgb' + PropertyStringArray[i];
-        // console.log('append rgb = ' + PropertyStringArray[i]);
     }
   
     return PropertyStringArray;
 };
 
+// Variables that are set the rgba values for box shadows to the default on 
+// light theme and dark theme shadow.
+var  LightBoxShadowRgba = 'rgba(21,189,135, 0.5)';
+var  DarkBoxShadowRgba = 'rgba(0,0,0,0.6)';
+
 GradientPalette.forEach((el) => {
+    console.log(LightBoxShadowRgba);
     el.addEventListener('click', () =>  {
         var SetBoxShadowTheme = gradientColorExtractor(el, 'background-image')[0]
         SetBoxShadowTheme = SetBoxShadowTheme.replace('rgb','rgba');
         SetBoxShadowTheme = SetBoxShadowTheme.replace(')',',0.50)');
-        // console.log(SetBoxShadowTheme);
+         LightBoxShadowRgba = SetBoxShadowTheme;
         var PrimaryColor = gradientColorExtractor(el, 'background-image')[0];
         var SecondaryColor = gradientColorExtractor(el, 'background-image')[1];
         changeThemeColor(root, PrimaryColor, SecondaryColor);
-        root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + SetBoxShadowTheme);
-        root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + SetBoxShadowTheme);
+        if(MainBoard.classList.contains('light-theme-applied') == true){
+            root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + SetBoxShadowTheme);
+            root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + SetBoxShadowTheme);
+        } else{
+            root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + DarkBoxShadowRgba);
+            root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + DarkBoxShadowRgba);
+        }
     })
 });
 
@@ -161,13 +188,17 @@ ThemeBtn.forEach(function(node){
             MainBoard.classList.add('light-theme-applied');
             MainBoard.classList.remove('dark-theme-applied')
             updateProperty(root, LightTheme);
+            if(MainBoard.classList.contains('light-theme-applied') == true){
+                root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' +  LightBoxShadowRgba);
+                root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' +  LightBoxShadowRgba);
+            }
         } else if(node.id == 'dark-theme-btn'){
             MainBoard.classList.remove('light-theme-applied');
             MainBoard.classList.add('dark-theme-applied');
             updateProperty(root, DarkTheme);
             if(MainBoard.classList.contains('dark-theme-applied') == true){
-                root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px rgba(0,0,0,0.7)');
-                root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px rgba(0,0,0,0.7)');
+                root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + DarkBoxShadowRgba);
+                root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + DarkBoxShadowRgba);
             }
         } else if(node.id == 'automatic-theme-btn'){
             alert('feature not operational yet');
