@@ -72,8 +72,22 @@ body{
     width: 500px;
     height: 60vh;
     overflow-y: scroll;
-    border: dashed 2px teal;
+    /* border: solid 1px var(--primary-color); */
 }
+
+#settings-panel::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+  }
 
 #settings-btn{
     display: flex;
@@ -104,10 +118,11 @@ body{
     width: 90%;
     height: auto;
     border-radius: 4px;
-    background: var(--theme-color);
+    background: var(--theme-color-contrasted);
     box-sizing: border-box;
     padding: 10px 30px;
-    margin: 0px 0px 10px 0px;
+    margin: 100px 0px 0px 0px;
+    /* border: solid 2px var(--primary-color); */
 }
 
 .settings-panel-heading{
@@ -130,6 +145,10 @@ body{
     box-sizing: border-box;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     background: var(--theme-color);
+    /* border-left: solid 7px var(--primary-color);
+    border-right: solid 7px var(--primary-color);
+    border-top: solid 1px var(--primary-color);
+    border-bottom: solid 1px var(--primary-color); */
 }
 
 .settings-panel-component h5{
@@ -159,6 +178,8 @@ body{
 .theme-btn:hover{
     box-shadow: var(--board-btn-shadow);
     transform: scale(1.15);
+    /* filter: invert(0.5); */
+    /* background: #555; */
 }
 
 .theme-btn i{
