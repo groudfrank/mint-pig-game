@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
 var root, RollDiceBtn, dice, HoldBtn, NumericalDiceValue, PlayerBox, 
     PlayerOneGlobalScore, PlayerTwoGlobalScore, SettingsWrapper,
     PlayerGlobalScore, NewGameBtn, SettingsBtn, MainBoard, LightThemeBtn,
-    DarkThemeBtn, AutomaticThemeBtn, ThemeBtn;
+    DarkThemeBtn, AutomaticThemeBtn, ThemeBtn, FontSelectorMenu, FontSelectorBtn;
 
 root = document.querySelector(':root');
 MainBoard = document.getElementById('main-board');
@@ -22,6 +22,8 @@ PlayerOneGlobalScore = document.getElementById('player1-global-score');
 PlayerTwoGlobalScore = document.getElementById('player2-global-score');
 PlayerGlobalScore = document.querySelectorAll('player-global-score');
 NewGameBtn = document.getElementById('new-game-btn');
+FontSelectorBtn = document.getElementById('font-selector-btn');
+FontSelectorMenu = document.getElementById('font-selector-menu');
 
 // Regular variables
 var RollValue, RoundScore, NumToWord, MaxGlobalScore;
@@ -212,9 +214,17 @@ ColorSelectionBtn.forEach(function(node){
     });
 });
 
+FontSelectorBtn.addEventListener('click', function(){
+    if(FontSelectorMenu.classList.contains('no-display') == true){
+        FontSelectorMenu.classList.remove('no-display');
+    }else{
+        FontSelectorMenu.classList.add('no-display');
+    }
+})
+
 NewGameBtn.addEventListener('click', function(){
     clearFields();
-})
+});
 
 RollDiceBtn.addEventListener('click', function(){
     RollValue = Math.floor((Math.random() * 6) + 1);
