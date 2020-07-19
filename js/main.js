@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function(){
 var root, RollDiceBtn, dice, HoldBtn, NumericalDiceValue, PlayerBox, 
     PlayerOneGlobalScore, PlayerTwoGlobalScore, SettingsWrapper,
     PlayerGlobalScore, NewGameBtn, SettingsBtn, MainBoard, LightThemeBtn,
-    DarkThemeBtn, AutomaticThemeBtn, ThemeBtn, FontSelectorMenu, FontSelectorBtn;
+    DarkThemeBtn, AutomaticThemeBtn, ThemeBtn, FontSelectorBtnLabel,
+    FontSelectorMenu, FontSelectorBtn, FontSelectorComponent;
 
 root = document.querySelector(':root');
 MainBoard = document.getElementById('main-board');
@@ -24,13 +25,16 @@ PlayerGlobalScore = document.querySelectorAll('player-global-score');
 NewGameBtn = document.getElementById('new-game-btn');
 FontSelectorBtn = document.getElementById('font-selector-btn');
 FontSelectorMenu = document.getElementById('font-selector-menu');
+FontSelectorComponent = document.querySelectorAll('.font-selector-component');
+FontSelectorBtnLabel = document.getElementById('font-selector-btn-label');
 
 // Regular variables
-var RollValue, RoundScore, NumToWord, MaxGlobalScore;
+var RollValue, RoundScore, NumToWord, MaxGlobalScore, FallBackFonts;
 RollValue = 0;
 RoundScore = 0;
 NumToWord = "";
 MaxGlobalScore = 100;
+FallBackFonts = " 'Trebuchet', 'Verdana', 'Tahoma', 'Arial Narrow', 'Helvetica', 'Geneva', sans-serif";
 var DiceValues = {
     1:'one',
     2:'two', 
@@ -43,9 +47,9 @@ var DiceValues = {
 visibilityToggle();
 
 // Puts an indicating icon that reveals who the current player is
-// based on which player side currently has the 'is-active-player class.
+// based on which player side currently has the 'is-active-player' class.
 // By default Player 1 is the active player when the page loads. 
-// It is mean to work specifically with the activePlayerToggle function, 
+// It is meant to work specifically with the activePlayerToggle function, 
 // as a callback function. After the active status of a player changes 
 // due to activePlayerToggle, visibilityToggle will then make the active
 // player indicator visible.
@@ -120,7 +124,6 @@ var changeThemeColor = (node, primary, secondary) => {
 var propertyValueExtractor = (node, property) => {
     var PropertyValues = window.getComputedStyle(node);
     var FetchedPropertyValue = PropertyValues.getPropertyValue(property);
-    console.log(FetchedPropertyValue);
     return FetchedPropertyValue;
 };
 
@@ -157,7 +160,6 @@ var  LightBoxShadowRgba = 'rgba(21,189,135, 0.5)';
 var  DarkBoxShadowRgba = 'rgba(0,0,0,0.6)';
 
 GradientPalette.forEach((el) => {
-    console.log(LightBoxShadowRgba);
     el.addEventListener('click', () =>  {
         var SetBoxShadowTheme = gradientColorExtractor(el, 'background-image')[0]
         SetBoxShadowTheme = SetBoxShadowTheme.replace('rgb','rgba');
@@ -181,14 +183,25 @@ SettingsBtn.addEventListener('click', function(){
         SettingsWrapper.classList.remove('no-display');
     } else{
         SettingsWrapper.classList.add('no-display');
+        FontSelectorMenu.classList.add('no-display');
     }
 });
+
+SettingsWrapper.addEventListener('click',function(e){
+    // Disables JS's stupid default propagation mechanic that lets
+    // the event start with a descendant element and bubble up to 
+    // the intended element. StackOverflow to the rescue.
+    e = window.event || e; 
+    if(this === e.target) {
+        FontSelectorMenu.classList.add('no-display');
+    }
+})
 
 ThemeBtn.forEach(function(node){
     node.addEventListener('click', function(){
         if(node.id == 'light-theme-btn'){
             MainBoard.classList.add('light-theme-applied');
-            MainBoard.classList.remove('dark-theme-applied')
+            MainBoard.classList.remove('dark-theme-applied');
             updateProperty(root, LightTheme);
             if(MainBoard.classList.contains('light-theme-applied') == true){
                 root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' +  LightBoxShadowRgba);
@@ -221,6 +234,18 @@ FontSelectorBtn.addEventListener('click', function(){
         FontSelectorMenu.classList.add('no-display');
     }
 })
+
+// Updates the font used when a component is click
+FontSelectorComponent.forEach(function(component){
+    component.addEventListener('click', function(){
+        FontSelectorBtnLabel.innerHTML = component.innerHTML;
+        var UpdatedFontFamilyValue = FontSelectorBtnLabel.innerHTML + ", " + FallBackFonts;
+        root.style.setProperty('font-family', UpdatedFontFamilyValue);
+        // console.log(UpdatedFontFamilyValue);
+    });
+});
+
+// console.log(propertyValueExtractor(root, 'font'));
 
 NewGameBtn.addEventListener('click', function(){
     clearFields();
@@ -315,6 +340,6 @@ var DarkTheme = {
     "--board-btn-background" : "rgba(255,255,255,0.07)"
 }
 
-console.log(window.getComputedStyle(root));
+// console.log(window.getComputedStyle(root));
 
 });

@@ -32,7 +32,7 @@
 }
 
 @font-face {
-    font-family: Special-Elite;
+    font-family: Special Elite;
     src: url("fonts/Special_Elite/SpecialElite-Regular.ttf");
 }
 
@@ -42,7 +42,7 @@
 }
 
 @font-face {
-    font-family: Permanent-Marker;
+    font-family: Permanent Marker;
     src: url("fonts/Permanent_Marker/PermanentMarker-Regular.ttf");
 }
 
@@ -59,6 +59,7 @@ body{
     max-height: 100vh;
     background-image: url("img/real-grey.jpg");
     overflow-x: hidden; 
+    user-select: none;
 }
 
 .b-lazy {
@@ -152,7 +153,8 @@ border-radius: 5px;
     font-size: 18px;
     color: var(--primary-color);
     background: transparent;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 22px;
 }
 
 .settings-panel-component{
@@ -168,7 +170,7 @@ border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     background: var(--theme-color);
-    transition: ease 0.15s all;
+    transition: transform ease 0.15s, border ease 0.15s;
     position: relative;
 }
 
@@ -178,7 +180,7 @@ border-radius: 5px;
 }
 
 .settings-panel-component h5{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     margin-top: 5px;
 }
 
@@ -235,7 +237,7 @@ border-radius: 5px;
 
 .dropdown-menu{
     position: absolute;
-    bottom: 85px;
+    bottom: 79px;
     z-index: 3;
     width: 60%;
     background-color: var(--theme-color);
@@ -297,7 +299,7 @@ border-radius: 5px;
     padding: 7px 12px;
     border-radius: 3px;
     background-color: var(--board-btn-background);
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .board-btn-styles:hover{
