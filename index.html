@@ -41,10 +41,10 @@ Category: UI, UX, Web Developer.">
                 <h5>Theme</h5>
                 <div class="theme-btn-wrapper">
                     <div id="dark-theme-btn" class="theme-btn">
-                        <i class="far fa-moon"></i>
+                        <i class="fas fa-moon"></i>
                     </div>
                     <div id="light-theme-btn" class="theme-btn">
-                        <i class="far fa-sun"></i>
+                        <i class="fas fa-sun"></i>
                     </div>
                     <div id="automatic-theme-btn" class="theme-btn">
                         <i class="fas fa-adjust"></i>
@@ -103,7 +103,17 @@ Category: UI, UX, Web Developer.">
                 </div>
             </div>
             <div class="settings-panel-heading">Mechanics</div>
-            <div class="settings-panel-component"></div>
+            <div id="mechanics-panel" class="settings-panel-component">
+                <h5>Score</h5>
+                <form id="score-limit-input">
+                    <label>Score Limit:</label>
+                    <input type="number" value="20">
+                </form>
+                <form id="time-limit-input">
+                    <label>Time Limit:</label>
+                    <input type="range" value="20" class="slider">
+                </form>
+            </div>
             <!-- <div class="settings-panel-component"></div>
             <div class="settings-panel-component"></div> -->
         </div>
