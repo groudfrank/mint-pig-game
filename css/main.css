@@ -11,7 +11,7 @@
     --primary-color-box-shadow-sm: 0 8px 16px rgba(21,189,135,0.50);
     --primary-color-box-shadow-xsm: 0 4px 5px rgba(21,189,135,0.50);
     --theme-txt-color: #fff;
-    --txt-shadow-xsm: 0 10px 10px rgba(0,0,0,0.1);
+    --txt-shadow-xsm: 0 10px 10px rgba(0,0,0,0.2);
     --board-btn-shadow: 0 2px 3px -1px rgba(0,0,0,.08), 0 5px 10px -2px rgba(0,0,0,.15);
     --board-btn-background: rgba(0,0,0,0.05);
 }
@@ -44,6 +44,26 @@
 @font-face {
     font-family: Permanent Marker;
     src: url("fonts/Permanent_Marker/PermanentMarker-Regular.ttf");
+}
+
+@font-face {
+    font-family: PressStart2P;
+    src: url("fonts/Press_Start_2P/PressStart2P-Regular.ttf");
+}
+
+@font-face {
+    font-family: Grenze Gotisch;
+    src: url("fonts/Grenze_Gotisch/GrenzeGotisch.ttf");
+}
+
+@font-face {
+    font-family: Fredricka The Great;
+    src: url("fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf");
+}
+
+@font-face {
+    font-family: Bungee Inline;
+    src: url("fonts/Bungee_Inline/BungeeInline-Regular.ttf");
 }
 
 body{
@@ -246,6 +266,38 @@ border-radius: 5px;
     overflow: hidden;
 }
 
+#permanent-marker-font{
+    font-family: 'Permanent Marker';
+}
+
+#pacifico-font{
+    font-family: 'Pacifico';
+}
+
+#special-elite-font{
+    font-family: 'Special Elite';
+}
+
+#roboto-font{
+    font-family: 'Roboto';
+}
+
+#press-start-2p-font{
+    font-family: 'PressStart2P';
+}
+
+#grenze-gotisch-font{
+    font-family: 'Grenze Gotisch';
+}
+
+#fredricka-the-great-font{
+    font-family: 'Fredricka The Great';
+}
+
+#bungee-inline-font{
+    font-family: 'Bungee Inline';
+}
+
 .font-selector-component{
     display: flex;
     justify-content: center;
@@ -273,7 +325,7 @@ border-radius: 5px;
     min-height: 550px;
     background-color: transparent;
     border-radius: 5px;
-    box-shadow: 0 38px 43px rgba(0,0,0,0.2);
+    box-shadow: 0 38px 43px rgba(0,0,0,0.3);
     overflow: hidden;
 }
 
@@ -293,7 +345,7 @@ border-radius: 5px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 153px;
+    min-width: 153px;
     /* height: 34px;
     box-sizing: border-box; */
     padding: 7px 12px;
@@ -360,7 +412,7 @@ border-radius: 5px;
 .active-player-indicator{
     position: absolute;
     top: 15px;;
-    width: 10%;
+    width: 40px;
     height: 10px;
     background-color: linear-gradient(to right, #15bd87, #33E9AD);
     box-shadow: var(--primary-color-box-shadow-xsm);
@@ -372,6 +424,7 @@ border-radius: 5px;
 .player-details{
     display:flex;
     flex-direction: column;
+    align-items: center;
     height: 100%;
     /* border: solid red 2px; */
 }
