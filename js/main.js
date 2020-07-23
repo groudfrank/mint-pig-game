@@ -5,7 +5,7 @@ var root, RollDiceBtn, dice, HoldBtn, NumericalDiceValue, PlayerBox,
     PlayerOneGlobalScore, PlayerTwoGlobalScore, SettingsWrapper,
     PlayerGlobalScore, NewGameBtn, SettingsBtn, MainBoard, LightThemeBtn,
     DarkThemeBtn, AutomaticThemeBtn, ThemeBtn, FontSelectorBtnLabel,
-    FontSelectorMenu, FontSelectorBtn, FontSelectorComponent;
+    FontSelectorMenu, FontSelectorBtn, FontSelectorComponent, GlobalScoreSetter;
 
 root = document.querySelector(':root');
 MainBoard = document.getElementById('main-board');
@@ -27,13 +27,14 @@ FontSelectorBtn = document.getElementById('font-selector-btn');
 FontSelectorMenu = document.getElementById('font-selector-menu');
 FontSelectorComponent = document.querySelectorAll('.font-selector-component');
 FontSelectorBtnLabel = document.getElementById('font-selector-btn-label');
+GlobalScoreSetter = document.getElementById('global-score-setter');
 
 // Regular variables
 var RollValue, RoundScore, NumToWord, MaxGlobalScore, FallBackFonts;
 RollValue = 0;
 RoundScore = 0;
 NumToWord = "";
-MaxGlobalScore = 100;
+MaxGlobalScore = 20;
 FallBackFonts = " 'Trebuchet', 'Verdana', 'Tahoma', 'Arial Narrow', 'Helvetica', 'Geneva', sans-serif";
 var DiceValues = {
     1:'one',
@@ -155,11 +156,15 @@ var gradientColorExtractor = (node, property) => {
 };
 
 // Variables that are set the rgba values for box shadows to the default on 
-// light theme and dark theme shadow.
+// light theme and dark theme shadow. They are global because the values are
+// used by both the theme setting button and accent setting button. 
 var  LightBoxShadowRgba = 'rgba(21,189,135, 0.5)';
 var  DarkBoxShadowRgba = 'rgba(0,0,0,0.6)';
 
-GradientPalette.forEach((el) => {
+// This function sets the color of the shadow based on the theme used and accent 
+// color selected. You'll notice that when the theme is dark black shadows are used
+// while accent color shadows(with alpha) is applied when the light theme is set.
+GradientPalette.forEach(el => {
     el.addEventListener('click', () =>  {
         var SetBoxShadowTheme = gradientColorExtractor(el, 'background-image')[0]
         SetBoxShadowTheme = SetBoxShadowTheme.replace('rgb','rgba');
@@ -169,16 +174,19 @@ GradientPalette.forEach((el) => {
         var SecondaryColor = gradientColorExtractor(el, 'background-image')[1];
         changeThemeColor(root, PrimaryColor, SecondaryColor);
         if(MainBoard.classList.contains('light-theme-applied') == true){
+            // Sets accent color box shadows.
             root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + SetBoxShadowTheme);
             root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + SetBoxShadowTheme);
         } else{
+            // Sets black box shadows.
             root.style.setProperty('--primary-color-box-shadow-sm', '0 8px 16px ' + DarkBoxShadowRgba);
             root.style.setProperty('--primary-color-box-shadow-xsm', '0 4px 5px ' + DarkBoxShadowRgba);
         }
     })
 });
 
-SettingsBtn.addEventListener('click', function(){
+// Displays the settings menu
+SettingsBtn.addEventListener('click', () => {
     if(SettingsWrapper.classList.contains('no-display')){
         SettingsWrapper.classList.remove('no-display');
     } else{
@@ -187,18 +195,19 @@ SettingsBtn.addEventListener('click', function(){
     }
 });
 
-SettingsWrapper.addEventListener('click',function(e){
-    // Disables JS's stupid default propagation mechanic that lets
-    // the event start with a descendant element and bubble up to 
-    // the intended element. StackOverflow to the rescue.
+// Disables JS's stupid default propagation mechanic that lets
+// the event start with a descendant element and bubble up to 
+// the intended element. StackOverflow to the rescue.
+SettingsWrapper.addEventListener('click', e => {
     e = window.event || e; 
     if(this === e.target) {
         FontSelectorMenu.classList.add('no-display');
     }
 })
 
-ThemeBtn.forEach(function(node){
-    node.addEventListener('click', function(){
+// Sets the light theme or dark theme
+ThemeBtn.forEach(node =>{
+    node.addEventListener('click', () => {
         if(node.id == 'light-theme-btn'){
             MainBoard.classList.add('light-theme-applied');
             MainBoard.classList.remove('dark-theme-applied');
@@ -221,13 +230,14 @@ ThemeBtn.forEach(function(node){
     });
 });
 
-ColorSelectionBtn.forEach(function(node){
-    node.addEventListener('click', function(){
+ColorSelectionBtn.forEach( node =>{
+    node.addEventListener('click', () =>{
         // console.log('you clicked ' + node.classList);
     });
 });
 
-FontSelectorBtn.addEventListener('click', function(){
+// Toggles the font selection menu when clicked
+FontSelectorBtn.addEventListener('click', () =>{
     if(FontSelectorMenu.classList.contains('no-display') == true){
         FontSelectorMenu.classList.remove('no-display');
     }else{
@@ -236,8 +246,8 @@ FontSelectorBtn.addEventListener('click', function(){
 })
 
 // Updates the font used when a component is click
-FontSelectorComponent.forEach(function(component){
-    component.addEventListener('click', function(){
+FontSelectorComponent.forEach(component => {
+    component.addEventListener('click', () =>{
         FontSelectorBtnLabel.innerHTML = component.innerHTML;
         var UpdatedFontFamilyValue = FontSelectorBtnLabel.innerHTML + ", " + FallBackFonts;
         root.style.setProperty('font-family', UpdatedFontFamilyValue);
@@ -245,9 +255,14 @@ FontSelectorComponent.forEach(function(component){
     });
 });
 
-// console.log(propertyValueExtractor(root, 'font'));
+// Sets the maximum value for the highscore however it has to be a value between 6 and 20000000
+// as set by min and max attribute on the input element that is responsible for settings the
+// maximum score. 
+GlobalScoreSetter.addEventListener('change', () => {
+    MaxGlobalScore = GlobalScoreSetter.value;
+});
 
-NewGameBtn.addEventListener('click', function(){
+NewGameBtn.addEventListener('click', () => {
     clearFields();
 });
 
@@ -291,8 +306,8 @@ RollDiceBtn.addEventListener('click', function(){
 var MutationCallback = (node) =>{
     var tally = parseInt(node.innerHTML, 10);
 
-    if(tally >= 20){
-        alert("A high score reached!");
+    if(tally >= MaxGlobalScore){
+        alert("A high score reached! High Score: " + MaxGlobalScore);
     }
 }
 

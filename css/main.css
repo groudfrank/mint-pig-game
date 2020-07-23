@@ -210,9 +210,10 @@ label{
 }
 
 input[type=number]{
+    font-size: 1.2em;
     color: var(--primary-color);
     text-align: center;
-    width: 40px;
+    width: 70px;
     padding-left: 15px;
     margin-bottom: 20px;
     border: none;
